@@ -1,42 +1,80 @@
-import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {ActivityIndicator, TouchableOpacity} from 'react-native';
-import {Text, Div, Avatar} from 'react-native-magnus';
-import {primaryColor} from '../../../constants/themes';
-import {useAccount} from '../../services/userService';
+import {FlatList, TouchableNativeFeedback} from 'react-native-gesture-handler';
+import {Text, Div, Image} from 'react-native-magnus';
+
+const MovieCard = ({image, index}) => (
+  <TouchableNativeFeedback>
+    <Image
+      h={120}
+      w={85}
+      ml={index > 0 ? 10 : 0}
+      rounded={5}
+      source={{
+        uri: image,
+      }}
+    />
+  </TouchableNativeFeedback>
+);
 
 const Home = () => {
-  const {isLoading, isError, data: account} = useAccount();
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
-  if (isLoading) {
-    return (
-      <Div h="100%" justifyContent="center" alignItems="center">
-        <Text fontSize="6xl" color="text" mt="lg">
-          📦
-        </Text>
-        <ActivityIndicator size="large" color={primaryColor} />
-      </Div>
-    );
-  }
+  // const handleOpenAccount = () => navigation.navigate('Account');
 
-  if (isError) {
-    return <Text>Erreur</Text>;
-  }
-
-  const {email} = account;
-
-  const handleOpenAccount = () => navigation.navigate('Account');
+  const movies = [
+    {
+      id: 1,
+      image:
+        'https://images.unsplash.com/photo-1593642532400-2682810df593?ixid=MXwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
+    },
+    {
+      id: 2,
+      image:
+        'https://images.unsplash.com/photo-1593642532400-2682810df593?ixid=MXwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
+    },
+    {
+      id: 3,
+      image:
+        'https://images.unsplash.com/photo-1593642532400-2682810df593?ixid=MXwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
+    },
+    {
+      id: 4,
+      image:
+        'https://images.unsplash.com/photo-1593642532400-2682810df593?ixid=MXwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
+    },
+    {
+      id: 5,
+      image:
+        'https://images.unsplash.com/photo-1593642532400-2682810df593?ixid=MXwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
+    },
+    {
+      id: 6,
+      image:
+        'https://images.unsplash.com/photo-1593642532400-2682810df593?ixid=MXwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
+    },
+  ];
 
   return (
     <Div bg="body" h="100%" p="xl">
-      <TouchableOpacity onPress={handleOpenAccount}>
-        <Avatar bg="green800" size={50} fontSize="4xl" color="white">
-          {email.charAt(0).toUpperCase()}
-        </Avatar>
-      </TouchableOpacity>
-      <Text fontSize="6xl" color="text" mt="lg">
-        📦 Bienvenue
+      <Text fontSize="3xl" fontFamily="Roboto-Bold" color="text" my="lg">
+        Les plus gros succès de Bearflix
+      </Text>
+      <Div>
+        <FlatList
+          data={movies}
+          renderItem={({item, index}) => (
+            <MovieCard image={item.image} index={index} />
+          )}
+          keyExtractor={(item) => item.id}
+          horizontal
+        />
+      </Div>
+
+      <Text fontSize="3xl" fontFamily="Roboto-Bold" color="text" my="lg">
+        Programmes originaux Bearflix
+      </Text>
+      <Text fontSize="3xl" fontFamily="Roboto-Bold" color="text" my="lg">
+        Top 10
       </Text>
     </Div>
   );

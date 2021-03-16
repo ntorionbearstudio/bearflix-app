@@ -1,6 +1,6 @@
 export const primaryColor = '#0049C2';
 export const primaryColorDark = '#010030';
-export const bodyColor = '#F2F3F4';
+export const bodyColor = '#000000';
 export const whiteColor = '#FFFFFF';
 
 const THEMES = {
@@ -8,7 +8,7 @@ const THEMES = {
     name: 'default',
     colors: {
       body: bodyColor,
-      text: primaryColor,
+      text: whiteColor,
       border: '#fff',
       spinner: primaryColor,
       button: primaryColor,

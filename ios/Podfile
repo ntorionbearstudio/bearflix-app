@@ -3,12 +3,12 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'StartUINativeApp' do
+target 'Bearflix' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
 
-  target 'StartUINativeAppTests' do
+  target 'BearflixTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -23,10 +23,10 @@ target 'StartUINativeApp' do
   end
 end
 
-target 'StartUINativeApp-tvOS' do
-  # Pods for StartUINativeApp-tvOS
+target 'Bearflix-tvOS' do
+  # Pods for Bearflix-tvOS
 
-  target 'StartUINativeApp-tvOSTests' do
+  target 'Bearflix-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
