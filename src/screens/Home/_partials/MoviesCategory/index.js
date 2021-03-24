@@ -8,8 +8,8 @@ const MovieCard = ({image, index}) => (
   <TouchableOpacity>
     <FastImage
       style={{
-        width: 85,
-        height: 120,
+        width: 95,
+        height: 130,
         borderRadius: 5,
         marginLeft: index > 0 ? 10 : 0,
       }}
@@ -44,10 +44,10 @@ const MoviesCategory = ({categoryId}) => {
   if (isLoading) {
     return (
       <Div flexDir="row">
-        <Skeleton.Box h={120} w={85} />
-        <Skeleton.Box h={120} w={85} ml={10} />
-        <Skeleton.Box h={120} w={85} ml={10} />
-        <Skeleton.Box h={120} w={85} ml={10} />
+        <Skeleton.Box h={130} w={95} />
+        <Skeleton.Box h={130} w={95} ml={10} />
+        <Skeleton.Box h={130} w={95} ml={10} />
+        <Skeleton.Box h={130} w={95} ml={10} />
       </Div>
     );
   }
