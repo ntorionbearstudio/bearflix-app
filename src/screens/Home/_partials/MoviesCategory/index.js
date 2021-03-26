@@ -1,18 +1,13 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {FlatList, TouchableOpacity} from 'react-native';
+import React from 'react';
+import {FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {Div, Skeleton} from 'react-native-magnus';
-import {getMovies} from '../../../../services/picturesService';
 
 const MovieCard = ({image, index}) => (
   <TouchableOpacity>
     <FastImage
-      style={{
-        width: 95,
-        height: 130,
-        borderRadius: 5,
-        marginLeft: index > 0 ? 10 : 0,
-      }}
+      // eslint-disable-next-line react-native/no-inline-styles
+      style={[styles.image, {marginLeft: index === 0 ? 25 : 0}]}
       source={{
         uri: image,
       }}
@@ -21,30 +16,11 @@ const MovieCard = ({image, index}) => (
   </TouchableOpacity>
 );
 
-const MoviesCategory = ({categoryId}) => {
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const loadMovies = useCallback(async () => {
-    setIsLoading(true);
-
-    const [error, moviesData] = await getMovies(categoryId);
-
-    if (!error && moviesData) {
-      setMovies(moviesData);
-    }
-
-    setIsLoading(false);
-  }, [categoryId]);
-
-  useEffect(() => {
-    loadMovies();
-  }, [loadMovies]);
-
-  if (isLoading) {
+const MoviesCategory = ({movies, loading}) => {
+  if (loading) {
     return (
       <Div flexDir="row">
-        <Skeleton.Box h={130} w={95} />
+        <Skeleton.Box h={130} w={95} ml={25} />
         <Skeleton.Box h={130} w={95} ml={10} />
         <Skeleton.Box h={130} w={95} ml={10} />
         <Skeleton.Box h={130} w={95} ml={10} />
@@ -60,10 +36,19 @@ const MoviesCategory = ({categoryId}) => {
           <MovieCard image={item.urls.small} index={index} />
         )}
         keyExtractor={(item) => item.id}
+        ItemSeparatorComponent={() => <Div ml={10} />}
         horizontal
       />
     </Div>
   );
 };
+
+const styles = StyleSheet.create({
+  image: {
+    width: 95,
+    height: 130,
+    borderRadius: 5,
+  },
+});
 
 export default MoviesCategory;
