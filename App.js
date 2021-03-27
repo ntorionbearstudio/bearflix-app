@@ -12,6 +12,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {QueryClientProvider, QueryClient} from 'react-query';
 import Home from './src/screens/Home';
+import Player from './src/screens/Player';
 
 const Stack = createStackNavigator();
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
           headerShown: false,
         }}>
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Player" component={Player} />
       </Stack.Navigator>
     </NavigationContainer>
   </QueryClientProvider>

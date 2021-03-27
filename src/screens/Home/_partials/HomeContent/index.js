@@ -1,30 +1,51 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {ImageBackground, StyleSheet, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {Button, Icon} from 'react-native-magnus';
 import Animated from 'react-native-reanimated';
 import {MainMovieTitle} from '../../../../components/MainMovieTitle';
 
 const mainImage =
-  'https://images.unsplash.com/photo-1588167056840-13caf6e4562a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTY3NDh8MHwxfHNlYXJjaHwxfHxiZWFyfGVufDB8fHx8MTYxNjQ0ODE0MA&ixlib=rb-1.2.1&q=80&w=1080';
+  'https://i.pinimg.com/originals/e4/15/70/e41570d63224ed8f0e3872eacbe1fc00.jpg';
 
-export const HomeContent = ({scrollPosition, children}) => (
-  <Animated.ScrollView
-    onScroll={Animated.event(
-      [{nativeEvent: {contentOffset: {y: scrollPosition}}}],
-      {useNativeDriver: false},
-    )}
-    contentInsetAdjustmentBehavior="automatic"
-    style={styles.scrollView}>
-    <ImageBackground source={{uri: mainImage}} style={styles.imageBackground}>
-      <LinearGradient
-        colors={['#FFFFFF00', '#000000']}
-        style={styles.gradientContent}>
-        <MainMovieTitle>B E A R S</MainMovieTitle>
-      </LinearGradient>
-    </ImageBackground>
-    <View>{children}</View>
-  </Animated.ScrollView>
-);
+export const HomeContent = ({scrollPosition, children}) => {
+  const navigation = useNavigation();
+
+  const handleOpenPlayer = () => {
+    navigation.navigate('Player');
+  };
+
+  return (
+    <Animated.ScrollView
+      onScroll={Animated.event(
+        [{nativeEvent: {contentOffset: {y: scrollPosition}}}],
+        {useNativeDriver: false},
+      )}
+      contentInsetAdjustmentBehavior="automatic"
+      style={styles.scrollView}>
+      <ImageBackground source={{uri: mainImage}} style={styles.imageBackground}>
+        <LinearGradient
+          colors={['#FFFFFF00', '#000000']}
+          style={styles.gradientContent}>
+          <MainMovieTitle>B E A R S</MainMovieTitle>
+          <View>
+            <Button
+              py="sm"
+              px="lg"
+              bg="white"
+              color="black"
+              prefix={<Icon name="caretright" mr="sm" color="black" />}
+              onPress={handleOpenPlayer}>
+              Lecture
+            </Button>
+          </View>
+        </LinearGradient>
+      </ImageBackground>
+      <View style={styles.content}>{children}</View>
+    </Animated.ScrollView>
+  );
+};
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -40,5 +61,9 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'flex-end',
     alignItems: 'center',
+    height: 300,
+  },
+  content: {
+    marginTop: 20,
   },
 });
