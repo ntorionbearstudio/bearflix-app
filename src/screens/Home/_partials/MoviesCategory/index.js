@@ -3,20 +3,26 @@ import {FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {Div, Skeleton} from 'react-native-magnus';
 
-const MovieCard = ({image, index}) => (
-  <TouchableOpacity>
-    <FastImage
-      // eslint-disable-next-line react-native/no-inline-styles
-      style={[styles.image, {marginLeft: index === 0 ? 25 : 0}]}
-      source={{
-        uri: image,
-      }}
-      resizeMode={FastImage.resizeMode.cover}
-    />
-  </TouchableOpacity>
-);
+const MovieCard = ({item, index, onMovieSelected}) => {
+  const handleMoviePressed = () => {
+    onMovieSelected(item);
+  };
 
-const MoviesCategory = ({movies, loading}) => {
+  return (
+    <TouchableOpacity onPress={handleMoviePressed}>
+      <FastImage
+        // eslint-disable-next-line react-native/no-inline-styles
+        style={[styles.image, {marginLeft: index === 0 ? 25 : 0}]}
+        source={{
+          uri: item?.urls?.small,
+        }}
+        resizeMode={FastImage.resizeMode.cover}
+      />
+    </TouchableOpacity>
+  );
+};
+
+const MoviesCategory = ({movies, loading, onMovieSelected}) => {
   if (loading) {
     return (
       <Div flexDir="row">
@@ -33,7 +39,11 @@ const MoviesCategory = ({movies, loading}) => {
       <FlatList
         data={movies}
         renderItem={({item, index}) => (
-          <MovieCard image={item.urls.small} index={index} />
+          <MovieCard
+            item={item}
+            index={index}
+            onMovieSelected={onMovieSelected}
+          />
         )}
         keyExtractor={(item) => item.id}
         ItemSeparatorComponent={() => <Div ml={10} />}
