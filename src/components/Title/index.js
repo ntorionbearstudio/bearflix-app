@@ -2,8 +2,8 @@ import React from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {whiteColor} from '../../../constants/themes';
 
-export const Title = ({children, ...otherProps}) => (
-  <Text style={styles.title} {...otherProps}>
+export const Title = ({children, style = {}, ...otherProps}) => (
+  <Text style={[styles.title, style]} {...otherProps}>
     {children}
   </Text>
 );
