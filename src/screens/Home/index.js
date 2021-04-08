@@ -9,10 +9,14 @@ import {HomeHeader} from './_partials/HomeHeader';
 import {MovieModal} from './_partials/MovieModal';
 import MoviesCategory from './_partials/MoviesCategory';
 
+const mainImage =
+  'https://i.pinimg.com/originals/e4/15/70/e41570d63224ed8f0e3872eacbe1fc00.jpg';
+
 const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showMovieModal, setShowMovieModal] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [backgroundImage, setBackgroundImage] = useState(mainImage);
 
   const [movies, setMovies] = useState([]);
 
@@ -46,6 +50,16 @@ const Home = () => {
     setSelectedMovie(null);
   };
 
+  const handleSelectCategory = (reset = false) => {
+    if (reset) {
+      setBackgroundImage(mainImage);
+    } else {
+      setBackgroundImage(
+        movies[Math.floor(Math.random() * movies.length)].urls?.regular,
+      );
+    }
+  };
+
   const loadMovies = useCallback(async () => {
     setIsLoading(true);
 
@@ -68,9 +82,12 @@ const Home = () => {
         height={headerHeight}
         opacity={headerOpacity}
         headTop={headerHeadTop}
+        onSelectCategory={handleSelectCategory}
       />
 
-      <HomeContent scrollPosition={scrollPosition}>
+      <HomeContent
+        scrollPosition={scrollPosition}
+        backgroundImage={backgroundImage}>
         <Title>Les plus gros succès de Bearflix</Title>
         <MoviesCategory
           movies={movies.slice(1, 10)}

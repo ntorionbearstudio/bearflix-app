@@ -6,10 +6,7 @@ import {Button, Icon} from 'react-native-magnus';
 import Animated from 'react-native-reanimated';
 import {MainMovieTitle} from '../../../../components/MainMovieTitle';
 
-const mainImage =
-  'https://i.pinimg.com/originals/e4/15/70/e41570d63224ed8f0e3872eacbe1fc00.jpg';
-
-export const HomeContent = ({scrollPosition, children}) => {
+export const HomeContent = ({scrollPosition, children, backgroundImage}) => {
   const navigation = useNavigation();
 
   const handleOpenPlayer = () => {
@@ -24,7 +21,9 @@ export const HomeContent = ({scrollPosition, children}) => {
       )}
       contentInsetAdjustmentBehavior="automatic"
       style={styles.scrollView}>
-      <ImageBackground source={{uri: mainImage}} style={styles.imageBackground}>
+      <ImageBackground
+        source={{uri: backgroundImage}}
+        style={styles.imageBackground}>
         <LinearGradient
           colors={['#FFFFFF00', '#000000']}
           style={styles.gradientContent}>

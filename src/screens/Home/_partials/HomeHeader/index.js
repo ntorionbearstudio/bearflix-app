@@ -6,7 +6,7 @@ import {HeaderLink} from '../../../../components/HeaderLink';
 import {Title} from '../../../../components/Title';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-export const HomeHeader = ({height, opacity, headTop}) => {
+export const HomeHeader = ({height, opacity, headTop, onSelectCategory}) => {
   let animSeries = useRef(new Animated.Value(-25)).current;
   let animMovies = useRef(new Animated.Value(75)).current;
   let animList = useRef(new Animated.Value(175)).current;
@@ -28,6 +28,7 @@ export const HomeHeader = ({height, opacity, headTop}) => {
     setListSelected(false);
     setMoviessSelected(false);
     handlePressLink(animSeries, -90);
+    onSelectCategory();
   };
 
   const handlePressMovies = () => {
@@ -35,6 +36,7 @@ export const HomeHeader = ({height, opacity, headTop}) => {
     setListSelected(false);
     setMoviessSelected(true);
     handlePressLink(animMovies, -90);
+    onSelectCategory();
   };
 
   const handlePressList = () => {
@@ -42,6 +44,7 @@ export const HomeHeader = ({height, opacity, headTop}) => {
     setListSelected(true);
     setMoviessSelected(false);
     handlePressLink(animList, -90);
+    onSelectCategory();
   };
 
   const handleRemoveFilter = () => {
@@ -52,31 +55,33 @@ export const HomeHeader = ({height, opacity, headTop}) => {
     handlePressLink(animSeries, -25);
     handlePressLink(animMovies, 75);
     handlePressLink(animList, 175);
+
+    onSelectCategory(true);
   };
 
   return (
     <View>
       <Animated.View style={[styles.header, {height}]} opacity={opacity} />
       <Animated.View style={[styles.headerContent, {height}]}>
-        {(seriesSelected || moviesSelected || listSelected) && (
-          <View style={styles.headerCategory}>
-            <TouchableOpacity onPress={handleRemoveFilter}>
-              <Icon name="arrowleft" color="white" fontSize="3xl" />
-            </TouchableOpacity>
-            {seriesSelected && <Title>Séries</Title>}
-            {moviesSelected && <Title>Films</Title>}
-            {listSelected && <Title>Ma liste</Title>}
-          </View>
-        )}
+        <Animated.View style={{left: 0, top: headTop}}>
+          {(seriesSelected || moviesSelected || listSelected) && (
+            <View style={styles.headerCategory}>
+              <TouchableOpacity onPress={handleRemoveFilter}>
+                <Icon name="arrowleft" color="white" fontSize="3xl" />
+              </TouchableOpacity>
+              {seriesSelected && <Title>Séries</Title>}
+              {moviesSelected && <Title>Films</Title>}
+              {listSelected && <Title>Ma liste</Title>}
+            </View>
+          )}
 
-        {!seriesSelected && !moviesSelected && !listSelected && (
-          <Animated.View style={{left: 0, top: headTop}}>
+          {!seriesSelected && !moviesSelected && !listSelected && (
             <Image
               source={require('../../../../../assets/logo.png')}
               style={styles.logo}
             />
-          </Animated.View>
-        )}
+          )}
+        </Animated.View>
 
         <Animated.View style={[styles.headerLinksContent, {height}]}>
           <View style={styles.headerLinks}>
