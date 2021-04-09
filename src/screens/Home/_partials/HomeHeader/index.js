@@ -1,19 +1,22 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import Animated, {Easing} from 'react-native-reanimated';
 import {Icon} from 'react-native-magnus';
 import {HeaderLink} from '../../../../components/HeaderLink';
 import {Title} from '../../../../components/Title';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {CATEGORIES} from '../../../../services/categoryService';
 
-export const HomeHeader = ({height, opacity, headTop, onSelectCategory}) => {
+export const HomeHeader = ({
+  height,
+  opacity,
+  headTop,
+  selectedCategory,
+  onSelectCategory,
+}) => {
   let animSeries = useRef(new Animated.Value(-25)).current;
   let animMovies = useRef(new Animated.Value(75)).current;
   let animList = useRef(new Animated.Value(175)).current;
-
-  const [seriesSelected, setSeriesSelected] = useState(false);
-  const [moviesSelected, setMoviessSelected] = useState(false);
-  const [listSelected, setListSelected] = useState(false);
 
   const handlePressLink = (animObj, toValue) => {
     Animated.timing(animObj, {
@@ -24,39 +27,25 @@ export const HomeHeader = ({height, opacity, headTop, onSelectCategory}) => {
   };
 
   const handlePressSeries = () => {
-    setSeriesSelected(true);
-    setListSelected(false);
-    setMoviessSelected(false);
     handlePressLink(animSeries, -90);
-    onSelectCategory();
+    onSelectCategory(CATEGORIES.SERIES);
   };
 
   const handlePressMovies = () => {
-    setSeriesSelected(false);
-    setListSelected(false);
-    setMoviessSelected(true);
     handlePressLink(animMovies, -90);
-    onSelectCategory();
+    onSelectCategory(CATEGORIES.MOVIES);
   };
 
   const handlePressList = () => {
-    setSeriesSelected(false);
-    setListSelected(true);
-    setMoviessSelected(false);
     handlePressLink(animList, -90);
-    onSelectCategory();
+    onSelectCategory(CATEGORIES.MY_LIST);
   };
 
   const handleRemoveFilter = () => {
-    setSeriesSelected(false);
-    setListSelected(false);
-    setMoviessSelected(false);
-
     handlePressLink(animSeries, -25);
     handlePressLink(animMovies, 75);
     handlePressLink(animList, 175);
-
-    onSelectCategory(true);
+    onSelectCategory();
   };
 
   return (
@@ -64,23 +53,27 @@ export const HomeHeader = ({height, opacity, headTop, onSelectCategory}) => {
       <Animated.View style={[styles.header, {height}]} opacity={opacity} />
       <Animated.View style={[styles.headerContent, {height}]}>
         <Animated.View style={{left: 0, top: headTop}}>
-          {(seriesSelected || moviesSelected || listSelected) && (
+          {(selectedCategory.series ||
+            selectedCategory.movies ||
+            selectedCategory.myList) && (
             <View style={styles.headerCategory}>
               <TouchableOpacity onPress={handleRemoveFilter}>
                 <Icon name="arrowleft" color="white" fontSize="3xl" />
               </TouchableOpacity>
-              {seriesSelected && <Title>Séries</Title>}
-              {moviesSelected && <Title>Films</Title>}
-              {listSelected && <Title>Ma liste</Title>}
+              {selectedCategory.series && <Title>Séries</Title>}
+              {selectedCategory.movies && <Title>Films</Title>}
+              {selectedCategory.myList && <Title>Ma liste</Title>}
             </View>
           )}
 
-          {!seriesSelected && !moviesSelected && !listSelected && (
-            <Image
-              source={require('../../../../../assets/logo.png')}
-              style={styles.logo}
-            />
-          )}
+          {!selectedCategory.series &&
+            !selectedCategory.movies &&
+            !selectedCategory.myList && (
+              <Image
+                source={require('../../../../../assets/logo.png')}
+                style={styles.logo}
+              />
+            )}
         </Animated.View>
 
         <Animated.View style={[styles.headerLinksContent, {height}]}>
@@ -88,19 +81,19 @@ export const HomeHeader = ({height, opacity, headTop, onSelectCategory}) => {
             <HeaderLink
               onPress={handlePressSeries}
               leftPosition={animSeries}
-              hidden={moviesSelected || listSelected}>
+              hidden={selectedCategory.movies || selectedCategory.myList}>
               Séries
             </HeaderLink>
             <HeaderLink
               onPress={handlePressMovies}
               leftPosition={animMovies}
-              hidden={seriesSelected || listSelected}>
+              hidden={selectedCategory.series || selectedCategory.myList}>
               Films
             </HeaderLink>
             <HeaderLink
               onPress={handlePressList}
               leftPosition={animList}
-              hidden={moviesSelected || seriesSelected}>
+              hidden={selectedCategory.movies || selectedCategory.series}>
               Ma liste
             </HeaderLink>
           </View>

@@ -3,6 +3,8 @@ import {StyleSheet, View} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {bodyColor} from '../../../constants/themes';
 import {Title} from '../../components/Title';
+import {useSelectedCategory} from '../../services/categoryService';
+import {useMyList} from '../../services/myListService';
 import {getMovies} from '../../services/picturesService';
 import {HomeContent} from './_partials/HomeContent';
 import {HomeHeader} from './_partials/HomeHeader';
@@ -17,8 +19,10 @@ const Home = () => {
   const [showMovieModal, setShowMovieModal] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [backgroundImage, setBackgroundImage] = useState(mainImage);
-
   const [movies, setMovies] = useState([]);
+  const [myList, setMyList] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useSelectedCategory();
+  const [getMyList] = useMyList();
 
   const scrollPosition = useRef(new Animated.Value(0)).current;
 
@@ -45,13 +49,21 @@ const Home = () => {
     setSelectedMovie(movie);
   };
 
-  const handleHideMovieModal = (movie) => {
+  const handleHideMovieModal = () => {
     setShowMovieModal(false);
     setSelectedMovie(null);
   };
 
-  const handleSelectCategory = (reset = false) => {
-    if (reset) {
+  const handleSelectCategory = (category = null) => {
+    setSelectedCategory(category);
+
+    // If the selected category is "My list" we take the list from the async storage.
+    //if (category !== CATEGORIES.MY_LIST) {
+    loadMovies();
+    //}
+
+    // If no category is selected, we reset the background image to the first image.
+    if (!category) {
       setBackgroundImage(mainImage);
     } else {
       setBackgroundImage(
@@ -76,53 +88,71 @@ const Home = () => {
     loadMovies();
   }, [loadMovies]);
 
+  const loadMyList = useCallback(async () => {
+    setMyList(await getMyList());
+  }, [getMyList]);
+
+  useEffect(() => {
+    loadMyList();
+  }, [loadMyList]);
+
   return (
     <View style={styles.body}>
       <HomeHeader
         height={headerHeight}
         opacity={headerOpacity}
         headTop={headerHeadTop}
+        selectedCategory={selectedCategory}
         onSelectCategory={handleSelectCategory}
       />
 
-      <HomeContent
-        scrollPosition={scrollPosition}
-        backgroundImage={backgroundImage}>
-        <Title>Les plus gros succès de Bearflix</Title>
-        <MoviesCategory
-          movies={movies.slice(1, 10)}
-          loading={isLoading}
-          onMovieSelected={handleShowMovieModal}
-        />
+      {!selectedCategory.myList ? (
+        <HomeContent
+          scrollPosition={scrollPosition}
+          backgroundImage={backgroundImage}>
+          <Title>Les plus gros succès de Bearflix</Title>
+          <MoviesCategory
+            movies={movies.slice(1, 10)}
+            loading={isLoading}
+            onMovieSelected={handleShowMovieModal}
+          />
 
-        <Title>Programmes originaux Bearflix</Title>
-        <MoviesCategory
-          movies={movies.slice(11, 20)}
-          loading={isLoading}
-          onMovieSelected={handleShowMovieModal}
-        />
+          <Title>Programmes originaux Bearflix</Title>
+          <MoviesCategory
+            movies={movies.slice(11, 20)}
+            loading={isLoading}
+            onMovieSelected={handleShowMovieModal}
+          />
 
-        <Title>Top 10</Title>
-        <MoviesCategory
-          movies={movies.slice(21, 30)}
-          loading={isLoading}
-          onMovieSelected={handleShowMovieModal}
-        />
+          <Title>Top 10</Title>
+          <MoviesCategory
+            movies={movies.slice(21, 30)}
+            loading={isLoading}
+            onMovieSelected={handleShowMovieModal}
+          />
 
-        <Title>Revoir</Title>
-        <MoviesCategory
-          movies={movies.slice(5, 14)}
-          loading={isLoading}
-          onMovieSelected={handleShowMovieModal}
-        />
+          <Title>Revoir</Title>
+          <MoviesCategory
+            movies={movies.slice(5, 14)}
+            loading={isLoading}
+            onMovieSelected={handleShowMovieModal}
+          />
 
-        <Title>Nouveautés</Title>
-        <MoviesCategory
-          movies={movies.slice(15, 25)}
-          loading={isLoading}
-          onMovieSelected={handleShowMovieModal}
-        />
-      </HomeContent>
+          <Title>Nouveautés</Title>
+          <MoviesCategory
+            movies={movies.slice(15, 25)}
+            loading={isLoading}
+            onMovieSelected={handleShowMovieModal}
+          />
+        </HomeContent>
+      ) : (
+        <View style={styles.myListContainer}>
+          <MoviesCategory
+            movies={myList}
+            onMovieSelected={handleShowMovieModal}
+          />
+        </View>
+      )}
 
       <MovieModal
         showModal={showMovieModal}
@@ -135,7 +165,12 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   body: {
+    flex: 1,
     backgroundColor: bodyColor,
+  },
+  myListContainer: {
+    flex: 1,
+    paddingTop: 100,
   },
 });
 
