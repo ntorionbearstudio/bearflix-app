@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {Div, Skeleton} from 'react-native-magnus';
 
@@ -35,7 +35,7 @@ const MoviesCategory = ({movies, loading, onMovieSelected}) => {
   }
 
   return (
-    <Div>
+    <View>
       <FlatList
         data={movies}
         renderItem={({item, index}) => (
@@ -49,7 +49,7 @@ const MoviesCategory = ({movies, loading, onMovieSelected}) => {
         ItemSeparatorComponent={() => <Div ml={10} />}
         horizontal
       />
-    </Div>
+    </View>
   );
 };
 

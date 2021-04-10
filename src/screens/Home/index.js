@@ -3,13 +3,14 @@ import {StyleSheet, View} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {bodyColor} from '../../../constants/themes';
 import {Title} from '../../components/Title';
-import {useSelectedCategory} from '../../services/categoryService';
+import {CATEGORIES, useSelectedCategory} from '../../services/categoryService';
 import {useMyList} from '../../services/myListService';
 import {getMovies} from '../../services/picturesService';
 import {HomeContent} from './_partials/HomeContent';
 import {HomeHeader} from './_partials/HomeHeader';
 import {MovieModal} from './_partials/MovieModal';
 import MoviesCategory from './_partials/MoviesCategory';
+import MyList from './_partials/MyList';
 
 const mainImage =
   'https://i.pinimg.com/originals/e4/15/70/e41570d63224ed8f0e3872eacbe1fc00.jpg';
@@ -57,10 +58,12 @@ const Home = () => {
   const handleSelectCategory = (category = null) => {
     setSelectedCategory(category);
 
-    // If the selected category is "My list" we take the list from the async storage.
-    //if (category !== CATEGORIES.MY_LIST) {
-    loadMovies();
-    //}
+    //If the selected category is "My list" we take the list from the async storage.
+    if (category !== CATEGORIES.MY_LIST) {
+      loadMovies();
+    } else {
+      loadMyList();
+    }
 
     // If no category is selected, we reset the background image to the first image.
     if (!category) {
@@ -147,10 +150,7 @@ const Home = () => {
         </HomeContent>
       ) : (
         <View style={styles.myListContainer}>
-          <MoviesCategory
-            movies={myList}
-            onMovieSelected={handleShowMovieModal}
-          />
+          <MyList movies={myList} onMovieSelected={handleShowMovieModal} />
         </View>
       )}
 

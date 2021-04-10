@@ -19,11 +19,15 @@ export const MovieModal = ({showModal, onHideModal, movie}) => {
   const [, addItemToMyList, removeItemFromMyList, isItemInMyList] = useMyList();
 
   const loadMyList = useCallback(async () => {
-    const isItemInList = await isItemInList(movie);
+    console.log('IN CALLBACK');
+
+    const isItemInList = await isItemInMyList(movie);
     setIsItemInMyListValue(isItemInList);
-  }, [movie]);
+  }, [movie, isItemInMyList]);
 
   useEffect(() => {
+    console.log('IN USE EFFECT');
+
     loadMyList();
   }, [loadMyList]);
 
