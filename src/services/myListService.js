@@ -9,6 +9,16 @@ export const useMyList = () => {
     return JSON.parse(myListData);
   }, []);
 
+  const isItemInMyList = useCallback(
+    async (item) => {
+      const myList = await getMyList();
+      return (myList || []).find(
+        (itemInList) => item && itemInList.id === item.id,
+      );
+    },
+    [getMyList],
+  );
+
   const addItemToMyList = async (item) => {
     const myList = await getMyList();
     await AsyncStorage.setItem(
@@ -24,24 +34,12 @@ export const useMyList = () => {
       (itemInList) => itemInList.id === item.id,
     );
 
-    console.log({itemIndex});
-
     if (itemIndex > -1) {
       myList.splice(itemIndex, 1);
     }
 
     await AsyncStorage.setItem(MY_LIST, JSON.stringify(myList));
   };
-
-  const isItemInMyList = useCallback(
-    async (item) => {
-      const myList = await getMyList();
-      return (myList || []).find(
-        (itemInList) => item && itemInList.id === item.id,
-      );
-    },
-    [getMyList],
-  );
 
   return [getMyList, addItemToMyList, removeItemFromMyList, isItemInMyList];
 };

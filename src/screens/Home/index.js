@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import Animated from 'react-native-reanimated';
+import {StyleSheet, View, Animated} from 'react-native';
 import {bodyColor} from '../../../constants/themes';
 import {Title} from '../../components/Title';
 import {CATEGORIES, useSelectedCategory} from '../../services/categoryService';
@@ -40,8 +39,8 @@ const Home = () => {
   });
 
   const headerOpacity = scrollPosition.interpolate({
-    inputRange: [0, 250, 500],
-    outputRange: [0, 0.5, 1],
+    inputRange: [0, 500],
+    outputRange: [0, 1],
     extrapolate: 'clamp',
   });
 

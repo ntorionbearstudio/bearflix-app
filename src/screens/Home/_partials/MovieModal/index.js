@@ -19,15 +19,11 @@ export const MovieModal = ({showModal, onHideModal, movie}) => {
   const [, addItemToMyList, removeItemFromMyList, isItemInMyList] = useMyList();
 
   const loadMyList = useCallback(async () => {
-    console.log('IN CALLBACK');
-
     const isItemInList = await isItemInMyList(movie);
     setIsItemInMyListValue(isItemInList);
   }, [movie, isItemInMyList]);
 
   useEffect(() => {
-    console.log('IN USE EFFECT');
-
     loadMyList();
   }, [loadMyList]);
 
@@ -57,7 +53,6 @@ export const MovieModal = ({showModal, onHideModal, movie}) => {
           <View style={styles.modalCloseArea} />
         </TouchableWithoutFeedback>
       </View>
-      {console.log({movie})}
       <View style={styles.modalContent}>
         <View style={styles.modalHeader}>
           <FastImage

@@ -46,7 +46,7 @@ const MoviesCategory = ({movies, loading, onMovieSelected}) => {
           />
         )}
         keyExtractor={(item) => item.id}
-        ItemSeparatorComponent={() => <Div ml={10} />}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
         horizontal
       />
     </View>
@@ -58,6 +58,9 @@ const styles = StyleSheet.create({
     width: 95,
     height: 130,
     borderRadius: 5,
+  },
+  separator: {
+    marginLeft: 10,
   },
 });
 

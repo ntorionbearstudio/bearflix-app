@@ -1,6 +1,5 @@
 import React, {useRef} from 'react';
-import {Image, StyleSheet, View} from 'react-native';
-import Animated, {Easing} from 'react-native-reanimated';
+import {Image, StyleSheet, View, Animated, Easing} from 'react-native';
 import {Icon} from 'react-native-magnus';
 import {HeaderLink} from '../../../../components/HeaderLink';
 import {Title} from '../../../../components/Title';
@@ -23,6 +22,7 @@ export const HomeHeader = ({
       toValue,
       duration: 500,
       easing: Easing.cubic,
+      useNativeDriver: false,
     }).start();
   };
 
