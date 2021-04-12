@@ -8,6 +8,8 @@ const MovieCard = ({item, index, onMovieSelected}) => {
     onMovieSelected(item);
   };
 
+  // TouchableOpacity : https://reactnative.dev/docs/touchableopacity
+
   return (
     <TouchableOpacity onPress={handleMoviePressed}>
       <FastImage
@@ -33,6 +35,8 @@ const MoviesCategory = ({movies, loading, onMovieSelected}) => {
       </Div>
     );
   }
+
+  // FlatList Docs : https://reactnative.dev/docs/flatlist
 
   return (
     <View>

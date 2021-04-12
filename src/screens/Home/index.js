@@ -24,6 +24,8 @@ const Home = () => {
   const [selectedCategory, setSelectedCategory] = useSelectedCategory();
   const [getMyList] = useMyList();
 
+  // Animated API : https://reactnative.dev/docs/animated
+
   const scrollPosition = useRef(new Animated.Value(0)).current;
 
   const headerHeight = scrollPosition.interpolate({

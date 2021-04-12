@@ -42,6 +42,9 @@ export const MovieModal = ({showModal, onHideModal, movie}) => {
     loadMyList();
   };
 
+  // Modal Docs : https://reactnative.dev/docs/modal
+  // TouchableWithoutFeedback : https://reactnative.dev/docs/touchablewithoutfeedback
+
   return (
     <Modal
       transparent
