@@ -1,7 +1,8 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {StyleSheet, View, Animated} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {StyleSheet, View} from 'react-native';
 import {bodyColor} from '../../../constants/themes';
 import {Title} from '../../components/Title';
+import {useAnimations} from '../../services/animationsService';
 import {CATEGORIES, useSelectedCategory} from '../../services/categoryService';
 import {useMyList} from '../../services/myListService';
 import {getMovies} from '../../services/picturesService';
@@ -23,28 +24,10 @@ const Home = () => {
   const [myList, setMyList] = useState([]);
   const [selectedCategory, setSelectedCategory] = useSelectedCategory();
   const [getMyList] = useMyList();
-
-  // Animated API : https://reactnative.dev/docs/animated
-
-  const scrollPosition = useRef(new Animated.Value(0)).current;
-
-  const headerHeight = scrollPosition.interpolate({
-    inputRange: [0, 500],
-    outputRange: [100, 60],
-    extrapolate: 'clamp',
-  });
-
-  const headerHeadTop = scrollPosition.interpolate({
-    inputRange: [0, 500],
-    outputRange: [0, -50],
-    extrapolate: 'clamp',
-  });
-
-  const headerOpacity = scrollPosition.interpolate({
-    inputRange: [0, 500],
-    outputRange: [0, 1],
-    extrapolate: 'clamp',
-  });
+  const [
+    scrollPosition,
+    {headerHeight, headerHeadTop, headerOpacity},
+  ] = useAnimations();
 
   const handleShowMovieModal = (movie) => {
     setShowMovieModal(true);

@@ -1,28 +1,7 @@
 import React from 'react';
-import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
-import FastImage from 'react-native-fast-image';
+import {FlatList, StyleSheet, View} from 'react-native';
 import {Div, Skeleton} from 'react-native-magnus';
-
-const MovieCard = ({item, index, onMovieSelected}) => {
-  const handleMoviePressed = () => {
-    onMovieSelected(item);
-  };
-
-  // TouchableOpacity : https://reactnative.dev/docs/touchableopacity
-
-  return (
-    <TouchableOpacity onPress={handleMoviePressed}>
-      <FastImage
-        // eslint-disable-next-line react-native/no-inline-styles
-        style={[styles.image, {marginLeft: index === 0 ? 25 : 0}]}
-        source={{
-          uri: item?.urls?.small,
-        }}
-        resizeMode={FastImage.resizeMode.cover}
-      />
-    </TouchableOpacity>
-  );
-};
+import MovieCard from '../MovieCard';
 
 const MoviesCategory = ({movies, loading, onMovieSelected}) => {
   if (loading) {
@@ -58,11 +37,6 @@ const MoviesCategory = ({movies, loading, onMovieSelected}) => {
 };
 
 const styles = StyleSheet.create({
-  image: {
-    width: 95,
-    height: 130,
-    borderRadius: 5,
-  },
   separator: {
     marginLeft: 10,
   },
