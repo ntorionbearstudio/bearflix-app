@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import {Image, StyleSheet, View, Animated, Easing} from 'react-native';
-import {Icon} from 'react-native-magnus';
+import {ArrowBackIcon} from 'native-base';
 import {HeaderLink} from '../../../../components/HeaderLink';
 import {Title} from '../../../../components/Title';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -58,7 +58,7 @@ export const HomeHeader = ({
             selectedCategory.myList) && (
             <View style={styles.headerCategory}>
               <TouchableOpacity onPress={handleRemoveFilter}>
-                <Icon name="arrowleft" color="white" fontSize="3xl" />
+                <ArrowBackIcon color="white" fontSize="3xl" />
               </TouchableOpacity>
               {selectedCategory.series && <Title>Séries</Title>}
               {selectedCategory.movies && <Title>Films</Title>}

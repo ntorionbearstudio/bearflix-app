@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {ImageBackground, StyleSheet, View, Animated} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Button, Icon} from 'react-native-magnus';
+import {Button, Icon} from 'native-base';
 import {MainMovieTitle} from '../../../../components/MainMovieTitle';
 
 export const HomeContent = ({scrollPosition, children, backgroundImage}) => {
@@ -29,8 +29,8 @@ export const HomeContent = ({scrollPosition, children, backgroundImage}) => {
           <MainMovieTitle>B E A R S</MainMovieTitle>
           <View>
             <Button
-              py="sm"
-              px="lg"
+              py={4}
+              px={5}
               bg="white"
               color="black"
               prefix={<Icon name="caretright" mr="sm" color="black" />}

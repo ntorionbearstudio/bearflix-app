@@ -11,6 +11,7 @@ import {StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {QueryClientProvider, QueryClient} from 'react-query';
+import {NativeBaseProvider} from 'native-base';
 import Home from './src/screens/Home';
 import Player from './src/screens/Player';
 
@@ -20,16 +21,18 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <NavigationContainer>
-      <StatusBar barStyle="light-content" backgroundColor="#000000" />
+      <NativeBaseProvider>
+        <StatusBar barStyle="light-content" backgroundColor="#000000" />
 
-      <Stack.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Player" component={Player} />
-      </Stack.Navigator>
+        <Stack.Navigator
+          initialRouteName="Home"
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Player" component={Player} />
+        </Stack.Navigator>
+      </NativeBaseProvider>
     </NavigationContainer>
   </QueryClientProvider>
 );

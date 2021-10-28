@@ -1,17 +1,18 @@
 import React from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
-import {Div, Skeleton} from 'react-native-magnus';
+import {Skeleton} from 'react-native-magnus';
+import {Box} from 'native-base';
 import MovieCard from '../MovieCard';
 
 const MoviesCategory = ({movies, loading, onMovieSelected}) => {
   if (loading) {
     return (
-      <Div flexDir="row">
+      <Box flexDir="row">
         <Skeleton.Box h={130} w={95} ml={25} />
         <Skeleton.Box h={130} w={95} ml={10} />
         <Skeleton.Box h={130} w={95} ml={10} />
         <Skeleton.Box h={130} w={95} ml={10} />
-      </Div>
+      </Box>
     );
   }
 

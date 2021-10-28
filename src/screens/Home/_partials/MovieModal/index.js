@@ -8,7 +8,15 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {Button, Icon, Text} from 'react-native-magnus';
+import {
+  Button,
+  CheckIcon,
+  AddIcon,
+  Text,
+  Center,
+  InfoOutlineIcon,
+} from 'native-base';
+import Icon from 'react-native-ionicons';
 import {grayColor, whiteColor} from '../../../../../constants/themes';
 import {Title} from '../../../../components/Title';
 import {useMyList} from '../../../../services/myListService';
@@ -77,11 +85,11 @@ export const MovieModal = ({showModal, onHideModal, movie}) => {
 
         <View style={styles.modalFooter}>
           <Button
-            py="sm"
-            px="lg"
+            py={4}
+            px={5}
             bg="white"
             color="black"
-            prefix={<Icon name="caretright" mr="sm" color="black" />}
+            leftIcon={<Icon name="play-outline" mr={2} color="black" />}
             onPress={handleOpenPlayer}>
             Lecture
           </Button>
@@ -89,12 +97,25 @@ export const MovieModal = ({showModal, onHideModal, movie}) => {
           <TouchableOpacity
             onPress={handlePressItemInMyList}
             style={styles.plusButton}>
-            {isItemInMyListValue ? (
-              <Icon fontSize="2xl" name="check" mr="sm" color="white" />
-            ) : (
-              <Icon fontSize="2xl" name="plus" mr="sm" color="white" />
-            )}
-            <Text color="white">Ma liste</Text>
+            <Center>
+              {isItemInMyListValue ? (
+                <CheckIcon size="sm" name="check" color="white" />
+              ) : (
+                <AddIcon size="sm" name="plus" color="white" />
+              )}
+              <Text fontSize="xs" color="white">
+                Ma liste
+              </Text>
+            </Center>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => {}} style={styles.plusButton}>
+            <Center>
+              <InfoOutlineIcon size="sm" name="info" color="white" />
+              <Text fontSize="xs" color="white">
+                Infos
+              </Text>
+            </Center>
           </TouchableOpacity>
         </View>
       </View>
