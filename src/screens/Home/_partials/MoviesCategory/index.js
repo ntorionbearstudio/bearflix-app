@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, View} from 'react-native';
 import {Skeleton} from 'react-native-magnus';
 import {Box} from 'native-base';
 import MovieCard from '../MovieCard';
@@ -30,17 +30,11 @@ const MoviesCategory = ({movies, loading, onMovieSelected}) => {
           />
         )}
         keyExtractor={(item) => item.id}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        ItemSeparatorComponent={() => <Box marginLeft={2} />}
         horizontal
       />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  separator: {
-    marginLeft: 10,
-  },
-});
 
 export default MoviesCategory;

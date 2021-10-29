@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {ImageBackground, StyleSheet, View, Animated} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Button, Icon} from 'native-base';
+import {Box, Button, Icon} from 'native-base';
 import {MainMovieTitle} from '../../../../components/MainMovieTitle';
 
 export const HomeContent = ({scrollPosition, children, backgroundImage}) => {
@@ -28,19 +28,13 @@ export const HomeContent = ({scrollPosition, children, backgroundImage}) => {
           style={styles.gradientContent}>
           <MainMovieTitle>B E A R S</MainMovieTitle>
           <View>
-            <Button
-              py={4}
-              px={5}
-              bg="white"
-              color="black"
-              prefix={<Icon name="caretright" mr="sm" color="black" />}
-              onPress={handleOpenPlayer}>
+            <Button py={2} px={5} bg="primary.400" onPress={handleOpenPlayer}>
               Lecture
             </Button>
           </View>
         </LinearGradient>
       </ImageBackground>
-      <View style={styles.content}>{children}</View>
+      <Box marginTop={5}>{children}</Box>
     </Animated.ScrollView>
   );
 };
@@ -60,8 +54,5 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     height: 300,
-  },
-  content: {
-    marginTop: 20,
   },
 });

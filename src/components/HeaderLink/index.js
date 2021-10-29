@@ -1,7 +1,7 @@
+import {Text} from 'native-base';
 import React from 'react';
-import {StyleSheet, Text, View, Animated} from 'react-native';
+import {StyleSheet, View, Animated} from 'react-native';
 import {TouchableNativeFeedback} from 'react-native-gesture-handler';
-import {whiteColor} from '../../../constants/themes';
 
 export const HeaderLink = ({
   children,
@@ -19,7 +19,7 @@ export const HeaderLink = ({
       <TouchableNativeFeedback
         onPress={onPress}
         style={styles.headerLinkContainer}>
-        <Text style={styles.headerLink} {...otherProps}>
+        <Text color="white" {...otherProps}>
           {children}
         </Text>
       </TouchableNativeFeedback>
@@ -30,10 +30,5 @@ export const HeaderLink = ({
 const styles = StyleSheet.create({
   headerLinkContainer: {
     padding: 10,
-  },
-  headerLink: {
-    fontSize: 15,
-    fontFamily: 'Roboto',
-    color: whiteColor,
   },
 });

@@ -1,20 +1,15 @@
+import {Text} from 'native-base';
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
-import {whiteColor} from '../../../constants/themes';
 
-export const Title = ({children, style = {}, ...otherProps}) => (
-  <Text style={[styles.title, style]} {...otherProps}>
+export const Title = ({children, ...otherProps}) => (
+  <Text
+    color="white"
+    marginLeft={6}
+    marginBottom={2}
+    marginTop={2}
+    fontSize={22}
+    fontFamily="Roboto-Bold"
+    {...otherProps}>
     {children}
   </Text>
 );
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 22,
-    fontFamily: 'Roboto-Bold',
-    color: whiteColor,
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 25,
-  },
-});

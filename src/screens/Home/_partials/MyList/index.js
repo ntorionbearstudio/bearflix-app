@@ -1,11 +1,6 @@
+import {Box} from 'native-base';
 import React from 'react';
-import {
-  Dimensions,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Dimensions, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 const MovieCard = ({item, onMovieSelected}) => {
@@ -36,7 +31,7 @@ const MovieCard = ({item, onMovieSelected}) => {
 };
 
 const MyList = ({movies, onMovieSelected}) => (
-  <View style={styles.container}>
+  <Box padding={15}>
     <FlatList
       data={movies}
       numColumns={3}
@@ -50,13 +45,10 @@ const MyList = ({movies, onMovieSelected}) => (
       )}
       keyExtractor={(item) => item.id}
     />
-  </View>
+  </Box>
 );
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 15,
-  },
   image: {
     borderRadius: 5,
     margin: 5,

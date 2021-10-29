@@ -14,6 +14,7 @@ import {QueryClientProvider, QueryClient} from 'react-query';
 import {NativeBaseProvider} from 'native-base';
 import Home from './src/screens/Home';
 import Player from './src/screens/Player';
+import {theme} from './src/theme';
 
 const Stack = createStackNavigator();
 const queryClient = new QueryClient();
@@ -21,7 +22,7 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <NavigationContainer>
-      <NativeBaseProvider>
+      <NativeBaseProvider theme={theme}>
         <StatusBar barStyle="light-content" backgroundColor="#000000" />
 
         <Stack.Navigator

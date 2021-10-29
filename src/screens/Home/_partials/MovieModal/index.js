@@ -8,14 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {
-  Button,
-  CheckIcon,
-  AddIcon,
-  Text,
-  Center,
-  InfoOutlineIcon,
-} from 'native-base';
+import {Button, CheckIcon, AddIcon, Text, Center} from 'native-base';
 import Icon from 'react-native-ionicons';
 import {grayColor, whiteColor} from '../../../../../constants/themes';
 import {Title} from '../../../../components/Title';
@@ -84,13 +77,7 @@ export const MovieModal = ({showModal, onHideModal, movie}) => {
         </View>
 
         <View style={styles.modalFooter}>
-          <Button
-            py={4}
-            px={5}
-            bg="white"
-            color="black"
-            leftIcon={<Icon name="play-outline" mr={2} color="black" />}
-            onPress={handleOpenPlayer}>
+          <Button py={4} px={6} bg="primary.400" onPress={handleOpenPlayer}>
             Lecture
           </Button>
 
@@ -105,15 +92,6 @@ export const MovieModal = ({showModal, onHideModal, movie}) => {
               )}
               <Text fontSize="xs" color="white">
                 Ma liste
-              </Text>
-            </Center>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => {}} style={styles.plusButton}>
-            <Center>
-              <InfoOutlineIcon size="sm" name="info" color="white" />
-              <Text fontSize="xs" color="white">
-                Infos
               </Text>
             </Center>
           </TouchableOpacity>

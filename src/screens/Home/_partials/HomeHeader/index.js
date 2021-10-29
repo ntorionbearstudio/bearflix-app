@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
-import {Image, StyleSheet, View, Animated, Easing} from 'react-native';
-import {ArrowBackIcon} from 'native-base';
+import {StyleSheet, View, Animated, Easing} from 'react-native';
+import {ArrowBackIcon, Image} from 'native-base';
 import {HeaderLink} from '../../../../components/HeaderLink';
 import {Title} from '../../../../components/Title';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -71,7 +71,9 @@ export const HomeHeader = ({
             !selectedCategory.myList && (
               <Image
                 source={require('../../../../../assets/logo.png')}
-                style={styles.logo}
+                w={10}
+                h={10}
+                m={2}
               />
             )}
         </Animated.View>
@@ -141,10 +143,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingLeft: 20,
-  },
-  logo: {
-    width: 40,
-    height: 40,
-    margin: 10,
   },
 });

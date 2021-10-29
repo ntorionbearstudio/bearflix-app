@@ -1,6 +1,6 @@
+import {Box} from 'native-base';
 import React, {useCallback, useEffect, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {bodyColor} from '../../../constants/themes';
+import {View} from 'react-native';
 import {Title} from '../../components/Title';
 import {useAnimations} from '../../services/animationsService';
 import {CATEGORIES, useSelectedCategory} from '../../services/categoryService';
@@ -84,7 +84,7 @@ const Home = () => {
   }, [loadMyList]);
 
   return (
-    <View style={styles.body}>
+    <Box h="100%" bg="black">
       <HomeHeader
         height={headerHeight}
         opacity={headerOpacity}
@@ -133,9 +133,9 @@ const Home = () => {
           />
         </HomeContent>
       ) : (
-        <View style={styles.myListContainer}>
+        <Box pt={20}>
           <MyList movies={myList} onMovieSelected={handleShowMovieModal} />
-        </View>
+        </Box>
       )}
 
       <MovieModal
@@ -143,19 +143,8 @@ const Home = () => {
         onHideModal={handleHideMovieModal}
         movie={selectedMovie}
       />
-    </View>
+    </Box>
   );
 };
-
-const styles = StyleSheet.create({
-  body: {
-    flex: 1,
-    backgroundColor: bodyColor,
-  },
-  myListContainer: {
-    flex: 1,
-    paddingTop: 100,
-  },
-});
 
 export default Home;
