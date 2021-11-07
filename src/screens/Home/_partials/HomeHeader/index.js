@@ -71,6 +71,7 @@ export const HomeHeader = ({
             !selectedCategory.myList && (
               <Image
                 source={require('../../../../../assets/logo.png')}
+                alt="logo"
                 w={10}
                 h={10}
                 m={2}
