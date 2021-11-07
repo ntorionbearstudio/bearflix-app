@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {Button, CheckIcon, AddIcon, Text, Center} from 'native-base';
-import Icon from 'react-native-ionicons';
 import {grayColor, whiteColor} from '../../../../../constants/themes';
 import {Title} from '../../../../components/Title';
 import {useMyList} from '../../../../services/myListService';

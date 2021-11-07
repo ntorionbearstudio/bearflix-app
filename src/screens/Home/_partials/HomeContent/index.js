@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {ImageBackground, StyleSheet, View, Animated} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Box, Button, Icon} from 'native-base';
+import {Box, Button} from 'native-base';
 import {MainMovieTitle} from '../../../../components/MainMovieTitle';
 
 export const HomeContent = ({scrollPosition, children, backgroundImage}) => {

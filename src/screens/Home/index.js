@@ -1,6 +1,5 @@
 import {Box} from 'native-base';
 import React, {useCallback, useEffect, useState} from 'react';
-import {View} from 'react-native';
 import {Title} from '../../components/Title';
 import {useAnimations} from '../../services/animationsService';
 import {CATEGORIES, useSelectedCategory} from '../../services/categoryService';
